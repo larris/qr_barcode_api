@@ -55,6 +55,10 @@ RUN ln -s \
 
 COPY . .
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
-CMD [ "python", "-u", "decode_qr_barcode.py" ]
+# Expose and run
+EXPOSE 80
+CMD ["python3", "decode_qr_barcode.py"]
+
+# CMD [ "python", "-u", "decode_qr_barcode.py" ]
