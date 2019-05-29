@@ -18,11 +18,10 @@ RUN apt-get update \
     libtiff-dev \
     libavformat-dev \
     libpq-dev \
+    libzbar-dev \
+    libzbar0 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . .
-
-RUN pip install -r requirements.txt
 
 WORKDIR /
 ENV OPENCV_VERSION="4.1.0"
@@ -54,5 +53,8 @@ RUN ln -s \
     /usr/local/python/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
     /usr/local/lib/python3.7/site-packages/cv2.so
 
+COPY . .
+
+RUN pip install -r requirements.txt
 
 CMD [ "python", "-u", "decode_qr_barcode.py" ]

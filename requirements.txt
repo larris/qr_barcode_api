@@ -1,4 +1,5 @@
 pip==18.0
+opencv-python
 Flask
 pyzbar
 numpy
