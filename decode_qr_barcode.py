@@ -47,7 +47,7 @@ def qr():
     except:
         return jsonify(
             {"error": "Unknown processing image.",
-             "request": request.data}
+             "request": request.data.decode('utf-8')}
         )
     app.logger.info(output)
     return jsonify({"output": output.data})
@@ -92,8 +92,8 @@ def display(im, decodedObjects):
   cv2.waitKey(0)
 
 
-def _get_image(url, session=requests.session):
-    return Image.open(BytesIO(session.get(url).content))
+def _get_image(url):
+    return Image.open(BytesIO(url))
 
 
 if __name__ == '__main__':
