@@ -1,10 +1,14 @@
-from __future__ import print_function
-import os
-import pyzbar.pyzbar as pyzbar
-import numpy as np
-import cv2
+
 from flask import Flask, request, jsonify, render_template
 import json
+import os
+import pyzbar.pyzbar as pyzbar
+from localfile import session
+from PIL import Image
+from PIL import ImageFilter
+from io import BytesIO
+import numpy as np
+import cv2
 
 app = Flask(__name__)
 
@@ -50,7 +54,8 @@ def qr():
 
 def decode(im):
   # Find barcodes and QR codes
-  decodedObjects = pyzbar.decode(im)
+  image = _get_image(im)
+  decodedObjects = pyzbar.decode(image)
 
   # Print results
   for obj in decodedObjects:
@@ -85,6 +90,10 @@ def display(im, decodedObjects):
   # Display results
   cv2.imshow("Results", im)
   cv2.waitKey(0)
+
+
+def _get_image(url, session=requests.session):
+    return Image.open(BytesIO(session.get(url).content))
 
 
 if __name__ == '__main__':

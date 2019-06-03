@@ -1,5 +1,7 @@
-pip==18.0
+pip
 opencv-python
 Flask
 pyzbar
 numpy
+Pillow
+requests
